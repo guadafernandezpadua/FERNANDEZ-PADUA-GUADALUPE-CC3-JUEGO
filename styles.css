@@ -1,0 +1,648 @@
+/* Disney-themed colors */
+:root {
+    --disney-blue: #1e90ff;
+    --disney-red: #ff0000;
+    --disney-yellow: #ffd700;
+    --disney-pink: #ff69b4;
+    --disney-purple: #9370db;
+    --disney-green: #32cd32;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated stars background */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.imgur.com/YKY28eT.png');
+    animation: twinkle 4s linear infinite;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.imgur.com/XYMF4ca.png');
+    animation: twinkle 3s linear infinite;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.2; }
+}
+
+.screen {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    max-width: 1200px;
+    width: 95%;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--disney-yellow);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+h2 {
+    color: var(--disney-pink);
+    margin-bottom: 1rem;
+}
+
+h3 {
+    color: var(--disney-yellow);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.disney-quote {
+    font-style: italic;
+    margin: 2rem 0;
+    color: var(--disney-pink);
+    font-size: 1.2rem;
+    text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+.instructions {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.instructions ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.instructions li {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.instructions ul ul {
+    margin-top: 0.5rem;
+    padding-left: 2rem;
+}
+
+.game-header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.game-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.score-container, .timer-container, .level-container, 
+.words-solved-container, .skips-container, .hints-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.8rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.score-container span, .timer-container span, .level-container span,
+.words-solved-container span, .skips-container span, .hints-container span {
+    font-size: 0.9rem;
+    color: var(--disney-yellow);
+}
+
+.score-container span:last-child, .timer-container span:last-child, 
+.level-container span:last-child, .words-solved-container span:last-child,
+.skips-container span:last-child, .hints-container span:last-child {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: white;
+}
+
+.game-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.main-game {
+    flex: 1;
+}
+
+.word-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    min-height: 150px;
+}
+
+.scrambled-letters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.letter {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, var(--disney-blue), var(--disney-purple));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: move;
+    user-select: none;
+    transition: transform 0.2s;
+}
+
+.letter:hover {
+    transform: scale(1.1);
+}
+
+.letter.dragging {
+    opacity: 0.5;
+    transform: scale(1.2);
+}
+
+.hint {
+    font-size: 1.2rem;
+    color: var(--disney-yellow);
+    margin-top: 1rem;
+    min-height: 1.5rem;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.solved-words {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    min-width: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.solved-words-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.solved-word {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: var(--disney-green);
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, var(--disney-blue), var(--disney-purple));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0;
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    min-width: 200px;
+}
+
+.stat h3 {
+    color: var(--disney-pink);
+    margin-bottom: 0.5rem;
+}
+
+.stat div {
+    font-size: 2rem;
+    color: var(--disney-yellow);
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    animation: slideDown 0.3s ease-out;
+}
+
+.message.success {
+    background: var(--disney-green);
+    color: white;
+}
+
+.message.error {
+    background: var(--disney-red);
+    color: white;
+}
+
+@keyframes slideDown {
+    from { transform: translate(-50%, -100%); }
+    to { transform: translate(-50%, 0); }
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .game-content {
+        flex-direction: column;
+    }
+
+    .solved-words {
+        width: 100%;
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+    .screen {
+        padding: 1rem;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .instructions {
+        padding: 1rem;
+    }
+
+    .instructions li {
+        font-size: 1rem;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .letter {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.end-message {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    white-space: pre-line;
+    padding: 2rem;
+    border-radius: 15px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.end-message.win {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    border: 3px solid #FFD700;
+}
+
+.end-message.lose {
+    background: linear-gradient(135deg, #FF6B6B, #FF0000);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    border: 3px solid #FF0000;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.level-container {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    border: 2px solid #FFD700;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.skips-container, .hints-container {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+    border: 2px solid #4CAF50;
+}
+
+.hints-container {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    border-color: #2196F3;
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+}
+
+@keyframes revealHint {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.error {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+}
+
+.message.info {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.welcome-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    text-align: center;
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #FFD700 rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+/* Estilo para la barra de scroll en Chrome/Safari */
+.welcome-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.welcome-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.welcome-content::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border-radius: 4px;
+}
+
+.welcome-content::-webkit-scrollbar-thumb:hover {
+    background: #FFA500;
+}
+
+.celebration-banner {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    padding: 1.2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    border: 3px solid #FFD700;
+    animation: pulse 2s infinite;
+}
+
+.celebration-banner h2 {
+    color: #000;
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    margin-bottom: 0.8rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.celebration-text {
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    color: #000;
+    line-height: 1.4;
+}
+
+.disney-quote {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-style: italic;
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.quote-author {
+    display: block;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-top: 1rem;
+    color: #FFD700;
+}
+
+.game-rules {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.2rem;
+    border-radius: 15px;
+}
+
+.game-rules h3 {
+    color: #FFD700;
+    font-size: clamp(1.4rem, 4vw, 1.6rem);
+    margin-bottom: 0.8rem;
+}
+
+.game-rules ul {
+    list-style: none;
+    padding: 0;
+}
+
+.game-rules li {
+    margin: 0.6rem 0;
+    font-size: clamp(1.1rem, 3vw, 1.2rem);
+    color: #fff;
+}
+
+.discount-info {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 2px solid #FFD700;
+}
+
+.discount-info p {
+    font-size: clamp(1.1rem, 3vw, 1.2rem);
+    color: #fff;
+    margin: 0.4rem 0;
+}
+
+.disclaimer {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #FFD700;
+    font-style: italic;
+}
+
+.start-button {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    font-size: clamp(1.3rem, 4vw, 1.5rem);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .welcome-content {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .celebration-banner {
+        padding: 1rem;
+    }
+
+    .game-rules {
+        padding: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .welcome-content {
+        padding: 0.8rem;
+    }
+
+    .start-button {
+        width: 90%;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .welcome-content {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 1rem;
+    }
+} 

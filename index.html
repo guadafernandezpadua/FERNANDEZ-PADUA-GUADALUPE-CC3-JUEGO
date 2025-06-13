@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disney Word Scramble</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <!-- Pantalla de Bienvenida -->
+    <div id="welcome-screen" class="screen">
+        <div class="welcome-content">
+            <h1>Disney Word Scramble</h1>
+            
+            <div class="celebration-banner">
+                <h2>¡Celebramos 100 años de magia! 🎉</h2>
+                <p class="celebration-text">Juega y gana un 20% de descuento en todas las tiendas oficiales de Disney</p>
+            </div>
+
+            <div class="game-rules">
+                <h3>¿Cómo jugar?</h3>
+                <ul>
+                    <li>Ordena las letras para formar nombres de Disney</li>
+                    <li>Gana puntos y sube de nivel</li>
+                    <li>¡Usa pistas y saltos estratégicamente!</li>
+                </ul>
+            </div>
+
+            <button id="start-button" class="start-button">¡Comenzar a jugar!</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Juego -->
+    <div id="game-screen" class="screen hidden">
+        <div class="game-header">
+            <div class="game-info">
+                <div class="score-container">
+                    <span>Puntuación: </span>
+                    <span id="score">0</span>
+                </div>
+                <div class="timer-container">
+                    <span>Tiempo: </span>
+                    <span id="timer">60</span>
+                </div>
+                <div class="level-container">
+                    <span>Nivel: </span>
+                    <span id="level">1</span>
+                </div>
+                <div class="words-solved-container">
+                    <span>Palabras: </span>
+                    <span id="words-solved">0</span>
+                </div>
+                <div class="skips-container">
+                    <span>Saltos: </span>
+                    <span id="skips-remaining">3</span>
+                </div>
+                <div class="hints-container">
+                    <span>Pistas: </span>
+                    <span id="hints-remaining">2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-content">
+            <div class="main-game">
+                <div class="word-container">
+                    <div id="scrambled-letters" class="scrambled-letters"></div>
+                    <div id="hint" class="hint"></div>
+                </div>
+
+                <div class="controls">
+                    <button id="shuffle-button">Mezclar Letras</button>
+                    <button id="hint-button">Pista</button>
+                    <button id="skip-button">Saltar</button>
+                </div>
+            </div>
+
+            <div class="solved-words">
+                <h3>Palabras Resueltas</h3>
+                <div id="solved-words-list" class="solved-words-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla Final -->
+    <div id="end-screen" class="screen hidden">
+        <h2>¡Juego Terminado!</h2>
+        <div id="end-message"></div>
+        <div class="stats">
+            <div class="stat">
+                <h3>Palabras Resueltas</h3>
+                <div id="words-solved">0</div>
+            </div>
+            <div class="stat">
+                <h3>Mejor Puntuación</h3>
+                <div id="high-score">0</div>
+            </div>
+        </div>
+        <button id="restart-button">¡Jugar de nuevo!</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
